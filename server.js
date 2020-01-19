@@ -17,6 +17,32 @@ function handler (request, response) {
     
           response.end(file);
         });
+      }else if (endpoint === "/img/image.jpg") {
+        response.writeHead(200, {"Content-Type": "image/jpeg"});
+    
+        fs.readFile(__dirname + '/public/img/image.jpg', function(error, file) {
+          if (error) {
+            console.log(error);
+            return;
+          }
+    
+          response.end(file);
+        });
+      }
+      else if (endpoint==='/main.css') {
+        response.writeHead(200, {"Content-Type": "text/css"});
+    
+        fs.readFile(__dirname + '/public/main.css', function(error, file) {
+          if (error) {
+            console.log(error);
+            return;
+          }
+    
+          response.end(file);
+        });
+      }
+      else{
+
       }
 
 }
@@ -24,8 +50,8 @@ function handler (request, response) {
 
 var server = http.createServer(handler);
 
-server.listen(3000, function () {
+server.listen(8080, function () {
 
-    console.log("Server is listening on port 3000. Ready to accept requests!");
+    console.log("Server is listening on port 8080. Ready to accept requests!");
 });
 
