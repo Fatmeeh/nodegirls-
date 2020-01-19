@@ -1,5 +1,6 @@
 var http = require('http');
 var fs = require('fs');
+var querystring=require('querystring');
 
 function handler (request, response) {
     var endpoint=request.url
@@ -41,13 +42,37 @@ function handler (request, response) {
           response.end(file);
         });
       }
-      else{
+      else if (endpoint==='/create-post') {
+        var allTheData = '';
+       
+        console.log('hiiiii')
+       
+        request.on('data', function (chunkOfData) {
+        
+            allTheData += chunkOfData;
+        });
+        
+        request.on('end', function () {
+
+            var convertedData = querystring.parse(allTheData);
+            console.log(convertedData);  
+            response.writeHead(301,{"Location": " /"});
+
+            response.end();
+       
+        });
+    
+      }else{
+          response.writeHead(404)
+          response.end('not found error #404')
 
       }
 
 }
 
 
+
+        
 var server = http.createServer(handler);
 
 server.listen(8080, function () {
