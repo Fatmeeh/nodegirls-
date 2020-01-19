@@ -9,7 +9,7 @@ function handler (request, response) {
     if (endpoint === "/") {
         handlers.handelHome(request,response)
       }
-    else if (endpoint==='/create-post') {
+    else if (endpoint==='/create/post') {
         handlers.handelPost(request,response)
     }else{
         // response.writeHead(404)

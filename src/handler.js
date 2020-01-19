@@ -24,7 +24,7 @@ const handelFiles =function (request, response) {
         html: 'text/html',
         css: 'text/css',
         js: 'application/javascript',
-        jpg: 'image/jpg'
+        png: 'image/png'
     }
     const filePath = path.join(__dirname ,'..', '/public',endpoint)
     console.log(filePath)
