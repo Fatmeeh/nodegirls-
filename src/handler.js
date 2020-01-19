@@ -26,7 +26,7 @@ const handelFiles =function (request, response) {
         js: 'application/javascript',
         jpg: 'image/jpg'
     }
-    const filePath = path.join(__dirname ,'..', '/public/',endpoint)
+    const filePath = path.join(__dirname ,'..', '/public',endpoint)
     console.log(filePath)
     fs.readFile(filePath, function (error, file) {
         if (error) {
