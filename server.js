@@ -1,6 +1,5 @@
-var http = require('http');
-var fs = require('fs');
-var querystring=require('querystring');
+const http = require('http');
+const handlers = require('./src/handler.js')
 
 function handler (request, response) {
     var endpoint=request.url
@@ -8,64 +7,14 @@ function handler (request, response) {
     var method=request.method
     console.log(method);
     if (endpoint === "/") {
-        response.writeHead(200, {"Content-Type": "text/html"});
-    
-        fs.readFile(__dirname + '/public/index.html', function(error, file) {
-          if (error) {
-            console.log(error);
-            return;
-          }
-    
-          response.end(file);
-        });
-      }else if (endpoint === "/img/image.jpg") {
-        response.writeHead(200, {"Content-Type": "image/jpeg"});
-    
-        fs.readFile(__dirname + '/public/img/image.jpg', function(error, file) {
-          if (error) {
-            console.log(error);
-            return;
-          }
-    
-          response.end(file);
-        });
+        handlers.handelHome(request,response)
       }
-      else if (endpoint==='/main.css') {
-        response.writeHead(200, {"Content-Type": "text/css"});
-    
-        fs.readFile(__dirname + '/public/main.css', function(error, file) {
-          if (error) {
-            console.log(error);
-            return;
-          }
-    
-          response.end(file);
-        });
-      }
-      else if (endpoint==='/create-post') {
-        var allTheData = '';
-       
-        console.log('hiiiii')
-       
-        request.on('data', function (chunkOfData) {
-        
-            allTheData += chunkOfData;
-        });
-        
-        request.on('end', function () {
-
-            var convertedData = querystring.parse(allTheData);
-            console.log(convertedData);  
-            response.writeHead(301,{"Location": " /"});
-
-            response.end();
-       
-        });
-    
-      }else{
-          response.writeHead(404)
-          response.end('not found error #404')
-
+    else if (endpoint==='/create-post') {
+        handlers.handelPost(request,response)
+    }else{
+        // response.writeHead(404)
+        handlers.handelFiles(request,response)
+        //   response.end('not found error #404')
       }
 
 }
