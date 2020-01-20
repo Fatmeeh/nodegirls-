@@ -24,7 +24,8 @@ const handelFiles =function (request, response) {
         html: 'text/html',
         css: 'text/css',
         js: 'application/javascript',
-        png: 'image/png'
+        png: 'image/png',
+        ico: 'image/x-icon'
     }
     const filePath = path.join(__dirname ,'..', '/public',endpoint)
     console.log(filePath)
@@ -39,7 +40,25 @@ const handelFiles =function (request, response) {
     });
 }
 
-const handelPost =function (request, response) {
+const handelCreatePost =function (request, response) {
+
+    var allTheData = '';
+    request.on('data', function (chunkOfData) {
+    
+        allTheData += chunkOfData;
+    });
+    
+    request.on('end', function () {
+
+        var convertedData = querystring.parse(allTheData);
+        console.log(convertedData);  
+        response.writeHead(301,{"Location": " /"});
+
+        response.end();
+   
+    });
+}
+const handelPosts =function (request, response) {
 
     var allTheData = '';
     request.on('data', function (chunkOfData) {
@@ -60,5 +79,6 @@ const handelPost =function (request, response) {
 module.exports={
     handelHome,
     handelFiles,
-    handelPost
+    handelCreatePost,
+    handelPosts
 }

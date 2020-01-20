@@ -10,11 +10,11 @@ function handler (request, response) {
         handlers.handelHome(request,response)
       }
     else if (endpoint==='/create/post') {
+        handlers.handelCreatePost(request,response)
+    } else if (endpoint==='/post') {
         handlers.handelPost(request,response)
-    }else{
-        // response.writeHead(404)
+    }else{      
         handlers.handelFiles(request,response)
-        //   response.end('not found error #404')
       }
 
 }
