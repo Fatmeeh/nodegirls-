@@ -5,6 +5,7 @@ document.onreadystatechange = function () {
       if(xhr.readyState === 4){
         if (xhr.status === 200){
           var data = JSON.parse(xhr.responseText);
+          console.log(data)
           for (var blogPost in data) {
             var postDiv         = document.createElement('div');
             var postText        = document.createElement('p');

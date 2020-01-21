@@ -11,8 +11,8 @@ function handler (request, response) {
       }
     else if (endpoint==='/create/post') {
         handlers.handelCreatePost(request,response)
-    } else if (endpoint==='/post') {
-        handlers.handelPost(request,response)
+    } else if (endpoint==='/posts') {
+        handlers.handelPosts(request,response)
     }else{      
         handlers.handelFiles(request,response)
       }
