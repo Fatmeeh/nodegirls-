@@ -2,10 +2,11 @@
 const fs = require('fs');
 const querystring=require('querystring');
 const path=require('path');
-
+const posts =  require('./posts.json')
 
 
 const handelHome = function(request, response) {
+    console.log(posts)
     response.writeHead(200, { "Content-Type": "text/html" });
     const filePath = path.join(__dirname ,'..','public','index.html')
     fs.readFile(filePath, function (error, file) {
@@ -41,40 +42,24 @@ const handelFiles =function (request, response) {
 }
 
 const handelCreatePost =function (request, response) {
-
-    var allTheData = '';
+var Data=""
     request.on('data', function (chunkOfData) {
     
-        allTheData += chunkOfData;
+        Data+=chunkOfData
     });
     
     request.on('end', function () {
-
-        var convertedData = querystring.parse(allTheData);
-        console.log(convertedData);  
-        response.writeHead(301,{"Location": " /"});
-
-        response.end();
-   
+        var utc = new Date()
+        var blogPost = querystring.parse(Data)
+        posts[utc]=blogPost.post,
+        fs.writeFile('./posts.json', JSON.stringify(posts),(error) =>{
+        });
+        response.writeHead(301,{Location: " /"});
+        response.end();  
     });
 }
 const handelPosts =function (request, response) {
-
-    var allTheData = '';
-    request.on('data', function (chunkOfData) {
-    
-        allTheData += chunkOfData;
-    });
-    
-    request.on('end', function () {
-
-        var convertedData = querystring.parse(allTheData);
-        console.log(convertedData);  
-        response.writeHead(301,{"Location": " /"});
-
-        response.end();
-   
-    });
+        response.end(JSON.stringify(posts));   
 }
 module.exports={
     handelHome,
